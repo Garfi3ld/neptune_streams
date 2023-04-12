@@ -1,0 +1,69 @@
+{
+  "data": {
+    "lastEventId": {
+      "commitNum": 1,
+      "opNum": 3
+    },
+    "lastTrxTimestamp": 1656345430973,
+    "format": "PG_JSON",
+    "records": [
+      {
+        "commitTimestamp": 1656345430973,
+        "eventId": {
+          "commitNum": 1,
+          "opNum": 1
+        },
+        "data": {
+          "id": "0",
+          "type": "vl",
+          "key": "label",
+          "value": {
+            "value": "state",
+            "dataType": "String"
+          }
+        },
+        "op": "ADD"
+      },
+      {
+        "commitTimestamp": 1656345430973,
+        "eventId": {
+          "commitNum": 1,
+          "opNum": 2
+        },
+        "data": {
+          "id": "0",
+          "type": "vp",
+          "key": "name",
+          "value": {
+            "value": "Texas",
+            "dataType": "String"
+          }
+        },
+        "op": "ADD"
+      },
+      {
+        "commitTimestamp": 1656345430973,
+        "eventId": {
+          "commitNum": 1,
+          "opNum": 3
+        },
+        "data": {
+          "id": "768",
+          "type": "vl",
+          "key": "label",
+          "value": {
+            "value": "review",
+            "dataType": "String"
+          }
+        },
+        "op": "ADD"
+      }
+    ],
+    "totalRecords": 3
+  },
+
+  "status": "200",
+  "statusText": "Ok",
+  "headers": {},
+  "config": {}
+}

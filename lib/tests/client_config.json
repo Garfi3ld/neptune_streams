@@ -1,0 +1,41 @@
+INFO	CLIENT config: {
+    "apiVersion": "2012-08-10",
+    "disableHostPrefix": false,
+    "logger": {},
+    "serviceId": "DynamoDB",
+    "runtime": "node",
+    "requestHandler": {
+        "metadata": {
+            "handlerProtocol": "http/1.1"
+        },
+        "configProvider": {}
+    },
+    "tls": true,
+    "isCustomEndpoint": false,
+    "systemClockOffset": 0,
+    "signingEscapePath": true,
+    "endpointCache": {
+        "cache": {
+            "capacity": 1000,
+            "forward": {
+                "0": 0,
+                "999": 0
+            },
+            "backward": {
+                "0": 0,
+                "999": 0
+            },
+            "K": [
+                null
+            ],
+            "V": [
+                null
+            ],
+            "size": 0,
+            "head": 0,
+            "tail": 0,
+            "items": {}
+        }
+    },
+    "isClientEndpointDiscoveryEnabled": false
+}

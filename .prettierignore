@@ -1,0 +1,5 @@
+node_modules
+coverage
+template.yaml
+cdk.out
+jest.config.js

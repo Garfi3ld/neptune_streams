@@ -1,0 +1,12 @@
+{
+    "name": "nodejs",
+    "version": "0.0.1",
+    "description": "Lambdas layer",
+    "private": true,
+    "license": "MIT",
+    "dependencies": {
+        "@aws-sdk/client-dynamodb": "^3.309.0",
+        "@aws-sdk/lib-dynamodb": "^3.309.0",
+        "axios": "^1.3.4"
+    }
+}

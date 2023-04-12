@@ -1,0 +1,13 @@
+{
+  "VPC_NAME": "NeptuneVPC",
+  "SECURITY_GROUP_NAME": "securityGroupName",
+  "ROLE_ARN": "",
+  "CIDR": "10.192.0.0/16",
+  "AZS": 2,
+  "NAT_GATEWAYS": 0,
+  "STREAM_PARTITION_KEY": "partition-name",
+  "GRAPH_DB_CLUSTER_NAME": "NEPTUNE-STREAMING",
+  "UPDATES_SUMMARY_TABLE": "updates-summary",
+  "NEPTUNE_UPDATES_TABLE": "neptune-updates",
+  "LATEST_PROCESSED_RECORD_TABLE": "latest-processed-record"
+}
