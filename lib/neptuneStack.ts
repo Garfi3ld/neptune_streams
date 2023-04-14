@@ -173,6 +173,6 @@ export class NeptuneWithVpcStack extends cdk.Stack {
 
     createCFNOutputs(this, neptuneClusterReadAddress, neptuneClusterWriteAddress, neptuneVpc.vpcId);
     // Add tags to all assets within this stack
-    createTags(this);
+    createTags(this, neptuneVpc);
   }
 }

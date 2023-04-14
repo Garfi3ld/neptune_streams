@@ -2,46 +2,43 @@ import {Stack} from 'aws-cdk-lib';
 import {Template} from 'aws-cdk-lib/assertions';
 import {CustomStackProps} from '../../../bin/config';
 import {NeptuneWithVpcStack} from '../../neptuneStack';
+import {NEPTUNE_STACK_NAME} from '../../../bin/neptuneStreamMain';
+import {getCustomStackPropsTests} from './testHelper';
 
 describe('Stack DynamoDb tests', () => {
   let stack: NeptuneWithVpcStack;
   let template: Template;
-  const REGION = 'us-west-2';
-  const VPC_NAME = 'NeptuneVPC';
-  const NEPTUNE_WITH_VPC_STACK = 'NeptuneWithVpcStack';
-  const stackProps: CustomStackProps = {
-    env: {region: REGION},
-    config: {
-      VPC_NAME: VPC_NAME,
-      CIDR: '10.0.0.0/16',
-      AZS: 2,
-      NAT_GATEWAYS: 2,
-      GRAPH_DB_CLUSTER_NAME: 'TestNeptuneCluster',
-      NEPTUNE_UPDATES_TABLE: 'Test_neptune_updates_table',
-      LATEST_PROCESSED_RECORD_TABLE: 'Test_latest_update_table',
-      UPDATES_SUMMARY_TABLE: 'Test_updates_summary_table',
-      SECURITY_GROUP_NAME: 'securityGroupName',
-      ROLE_ARN: 'roleARN',
-      STREAM_PARTITION_KEY: 'streamPartitionKey',
-    },
-  };
+
+  const testStackProperties: CustomStackProps = getCustomStackPropsTests();
 
   beforeEach(() => {
-    stack = new NeptuneWithVpcStack(new Stack(), NEPTUNE_WITH_VPC_STACK, stackProps);
+    stack = new NeptuneWithVpcStack(new Stack(), NEPTUNE_STACK_NAME, testStackProperties);
     template = Template.fromStack(stack);
   });
 
-  it('should create the necessary tables', () => {
-    template.hasResourceProperties('AWS::DynamoDB::Table', {
-      TableName: stackProps.config.UPDATES_SUMMARY_TABLE,
-    });
+  const tableConfigs = [
+    {name: testStackProperties.config.UPDATES_SUMMARY_TABLE, readCapacity: 1, writeCapacity: 1},
+    {name: testStackProperties.config.LATEST_PROCESSED_RECORD_TABLE, readCapacity: 1, writeCapacity: 1},
+    {name: testStackProperties.config.NEPTUNE_UPDATES_TABLE, readCapacity: 1, writeCapacity: 15},
+  ];
 
-    template.hasResourceProperties('AWS::DynamoDB::Table', {
-      TableName: stackProps.config.LATEST_PROCESSED_RECORD_TABLE,
-    });
-
-    template.hasResourceProperties('AWS::DynamoDB::Table', {
-      TableName: stackProps.config.NEPTUNE_UPDATES_TABLE,
+  tableConfigs.forEach(({name, readCapacity, writeCapacity}) => {
+    it(`should create the ${name} table with proper properties`, () => {
+      template.hasResourceProperties('AWS::DynamoDB::Table', {
+        TableName: name,
+        PointInTimeRecoverySpecification: {
+          PointInTimeRecoveryEnabled: true,
+        },
+        ProvisionedThroughput: {
+          ReadCapacityUnits: readCapacity,
+          WriteCapacityUnits: writeCapacity,
+        },
+        Tags: [
+          {Key: 'CreatedBy', Value: 'CDK'},
+          {Key: 'Owner', Value: 'CDK'},
+          {Key: 'Purpose', Value: 'Neptune Cluster Stream demo'},
+        ],
+      });
     });
   });
 });
