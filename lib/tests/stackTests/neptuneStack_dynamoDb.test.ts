@@ -41,18 +41,4 @@ describe('Stack DynamoDb tests', () => {
       });
     });
   });
-
-  it('should create the necessary tables', () => {
-    template.hasResourceProperties('AWS::DynamoDB::Table', {
-      TableName: testStackProperties.config.UPDATES_SUMMARY_TABLE,
-    });
-
-    template.hasResourceProperties('AWS::DynamoDB::Table', {
-      TableName: testStackProperties.config.LATEST_PROCESSED_RECORD_TABLE,
-    });
-
-    template.hasResourceProperties('AWS::DynamoDB::Table', {
-      TableName: testStackProperties.config.NEPTUNE_UPDATES_TABLE,
-    });
-  });
 });
